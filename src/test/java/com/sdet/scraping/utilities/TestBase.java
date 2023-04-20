@@ -27,10 +27,11 @@ public class TestBase {
 		WebDriverManager.firefoxdriver().setup();
 		driver = new FirefoxDriver();
 		
-		ConfigReader config = new ConfigReader();	
+		/*ConfigReader config = new ConfigReader();	
 		String u = config.getUrl(); 
-		System.out.println("url::"+u);
-		openUrl(config.getUrl());
+		System.out.println("url::"+u);*/
+		
+		openUrl("https://www.tarladalal.com/");
 	
 		
 		driver.manage().window().maximize();

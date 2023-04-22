@@ -1,5 +1,6 @@
 package com.sdet.scraping.utilities;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,11 +10,13 @@ import java.util.HashSet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Excel {
 
+	
 	/**
 	 * Extract data from excel
 	 * @return
@@ -39,18 +42,50 @@ public class Excel {
 		return data;
 	}
 	
+	private static XSSFWorkbook createSheet(String fileName, String sheetName) {
+		
+		File file = null;		
+		XSSFWorkbook workbook = null;
+		
+		try {
+		
+			//XSSFSheet sheet = null;
+			file = new File(Utils.filePath()+fileName);
+			System.out.println(file.exists());
+			if (file.exists()) {
+				workbook = (XSSFWorkbook) WorkbookFactory.create(new FileInputStream(file));
+			} else {
+				workbook = new XSSFWorkbook();
+				System.out.println("hhhh:"+workbook);
+			}
+			
+		System.out.println(sheetName);
+			XSSFSheet sheet =  workbook.createSheet(sheetName);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return workbook;
+	}
 	/**
 	 * Write data to excel
 	 * @param recipes
 	 * @throws IOException
 	 */
-	public static void writeToExcel(HashSet<String[]> recipes) throws IOException  {
+	public static void writeToExcel(HashSet<String[]> recipes, String fileName, String sheetName) throws IOException  {
 		
+		System.out.println(fileName);
 		
 		int rowCount = 1;
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		XSSFSheet sheet = workbook.createSheet("Hyperthyroid");
+		//XSSFWorkbook workbook = new XSSFWorkbook();
+		//XSSFSheet sheet = workbook.createSheet(sheetName);
 		
+		//create workbook and sheet
+		XSSFWorkbook workbook = createSheet(fileName, sheetName);
+		
+		XSSFSheet sheet = workbook.getSheet(sheetName);
+		
+		//Add header to excel
 		createHeader(sheet);
 		
 		for(String[] recipe:recipes) {
@@ -67,7 +102,7 @@ public class Excel {
 		
 		FileOutputStream outputStream = null;
 		try {
-			outputStream = new FileOutputStream(System.getProperty("user.dir")+"./src/test/resources/Data/RecipesByMorbidity.xlsx");
+			outputStream = new FileOutputStream(Utils.filePath()+fileName);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

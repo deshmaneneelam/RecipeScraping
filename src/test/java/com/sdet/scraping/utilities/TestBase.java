@@ -54,8 +54,8 @@ public class TestBase {
 		//driver.quit();
 	}
 	
-	/*@Test
+	@Test
 	public void testMethod() {
 		System.out.println("Here");
-	}*/
+	}
 }

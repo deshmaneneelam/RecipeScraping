@@ -14,9 +14,13 @@ public class TestBase {
 
 	WebDriver driver;
 	
+	/**
+	 * Launch browser
+	 * @throws IOException
+	 */
 	@BeforeClass
 	public void setup() throws IOException {
-		launchBrowser();	
+		launchBrowser();
 	}
 	
 	private void launchBrowser() throws IOException {
@@ -27,30 +31,31 @@ public class TestBase {
 		WebDriverManager.firefoxdriver().setup();
 		driver = new FirefoxDriver();
 		
-		/*ConfigReader config = new ConfigReader();	
-		String u = config.getUrl(); 
-		System.out.println("url::"+u);*/
-		
-		openUrl("https://www.tarladalal.com/");
-	
-		
+		ConfigReader config = new ConfigReader();	
+		openUrl(config.getUrl());		
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 		
 	}
 	
+	/**
+	 * Open project url
+	 * @param url
+	 */
 	private void openUrl(String url) {
 		driver.get(url);
 	}
 	
+	/**
+	 * Quit browser
+	 */
 	@AfterClass
 	public void closeBrowser() {
-		driver.close();
-		driver.quit();
+		//driver.quit();
 	}
 	
-	@Test
+	/*@Test
 	public void testMethod() {
 		System.out.println("Here");
-	}
+	}*/
 }

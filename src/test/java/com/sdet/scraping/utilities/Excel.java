@@ -25,7 +25,7 @@ public class Excel {
 	public static String[][] ExcelUtil() throws IOException {
 		
 		DataFormatter dataFormatter = new DataFormatter();
-		String ExcelPath = System.getProperty("user.dir")+"./src/test/resources/Data/AllRecipes.xlsx";
+		String ExcelPath = System.getProperty("user.dir")+"./src/test/resources/Data/FinalRecipeScrapeData.xlsx";
 
 		FileInputStream inputFile = new FileInputStream(ExcelPath);		
 		XSSFWorkbook workbook = new XSSFWorkbook(inputFile);
@@ -119,7 +119,7 @@ public class Excel {
 	 */
 	private static void createHeader(XSSFSheet sheet) {
 		
-		String[] header = {"Recipe ID","Recipe Name","Recipe Category","Food Category","Ingredients","Preparation Time","Cooking Time","Preparation Method","Nutrient values","Targeted morbid conditions","Recipe URL"};
+		String[] header = {"Recipe ID","Recipe Name","Recipe Category","Food Category","Ingredients","Preparation Time","Cooking Time","Preparation Method","Nutrient values","Targeted morbid conditions","Recipe URL","To Add"};
 		
 		int columnCount = 0;
 		Row row = sheet.createRow(0);	

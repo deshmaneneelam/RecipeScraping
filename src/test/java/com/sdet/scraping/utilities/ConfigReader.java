@@ -30,12 +30,11 @@ public class ConfigReader {
 		try {
 			property = new Properties();
 			
-			String filePath = System.getProperty("user.dir") + "/src/test/resources/Config/config.properties";
+			String filePath = System.getProperty("user.dir") + "./src/test/resources/Config/config.properties";
 			FileInputStream FP = new FileInputStream(filePath);
 			property.load(FP);
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
 		

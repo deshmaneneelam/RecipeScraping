@@ -4,6 +4,8 @@
   <test thread-count="5" name="Test">
     <classes>
       <class name="com.sdet.scraping.utilities.TestBase"/>
+      <class name="com.sdet.scraping.testcases.Hyperthyriodism"/>
+      <class name="com.sdet.scraping.testcases.Allergies"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

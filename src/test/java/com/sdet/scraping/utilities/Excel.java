@@ -45,6 +45,12 @@ public class Excel {
 		return data;
 	}
 	
+	/**
+	 * Create new sheet or return existing one
+	 * @param fileName
+	 * @param sheetName
+	 * @return
+	 */
 	private static XSSFWorkbook createSheet(String fileName, String sheetName) {
 		
 		File file = null;		
@@ -59,7 +65,6 @@ public class Excel {
 				workbook = (XSSFWorkbook) WorkbookFactory.create(new FileInputStream(file));
 			} else {
 				workbook = new XSSFWorkbook();
-				System.out.println("hhhh:"+workbook);
 			}
 			
 			//System.out.println(sheetName);
@@ -90,17 +95,21 @@ public class Excel {
 		
 		XSSFSheet sheet = workbook.getSheet(sheetName);
 		
+		XSSFCellStyle cs = setStyle(workbook);
+		
 		//Add header to excel
 		createHeader(sheet);
 		
 		for(String[] recipe:recipes) {
 			int columnCount = 0;
-			Row row = sheet.createRow(rowCount);	
+			Row row = sheet.createRow(rowCount);
+			row.setHeightInPoints(100);
 		
 			for(String j:recipe) {					
 				Cell cell = row.createCell(columnCount++);
 				//System.out.println("Cell value::"+j);
 				cell.setCellValue((String) j); 
+				cell.setCellStyle(cs);
 			}
 			rowCount++;
 		}
@@ -137,6 +146,13 @@ public class Excel {
 	}
 	
 	
+	/**
+	 * This is used for writing master data 
+	 * @param recipe
+	 * @param fileName
+	 * @param sheetName
+	 * @throws IOException
+	 */
 	public static void appendToExcel(ArrayList<String> recipe,  String fileName, String sheetName) throws IOException {
 		
 		
@@ -144,7 +160,7 @@ public class Excel {
 		XSSFSheet sheet = workbook.getSheet(sheetName);
 		
 		XSSFCellStyle cs=workbook.createCellStyle();
-		 cs.setWrapText(true);
+		cs.setWrapText(true);
 		cs.setVerticalAlignment(VerticalAlignment.TOP);
 		createHeader(sheet);
 		
@@ -184,5 +200,13 @@ public class Excel {
         workbook.close();
 		
 		
-	}	
+	}
+	
+	//Set cell style
+	public static XSSFCellStyle setStyle(XSSFWorkbook workbook) {
+		XSSFCellStyle cs=workbook.createCellStyle();
+		cs.setWrapText(true);
+		cs.setVerticalAlignment(VerticalAlignment.TOP);
+		return cs;
+	}
 }

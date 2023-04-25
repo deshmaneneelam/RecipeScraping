@@ -12,7 +12,19 @@ import com.sdet.scraping.utilities.Utils;
 public class Allergies extends Utils{
 
 	@Test
-	public void checkIngredients() throws IOException {
+	public void filterRecipesByAllergies() {
+		for(String i:allergies()) {
+			System.out.println("SLlergy:"+i);
+			try {
+				checkIngredients(i);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	public void checkIngredients(String allergy) throws IOException {
 		
 		HashSet<String[]> allowedRecipes = new HashSet<String[]>(); 
 		
@@ -27,7 +39,7 @@ public class Allergies extends Utils{
 					//System.out.println("Here:"+allRecipes[row][col]);
 					String[] ingredients = String.valueOf(allRecipes[row][col]).split(",") ;
 					
-					boolean flag = eliminateRecipes(ingredients, "egg");
+					boolean flag = eliminateRecipes(ingredients, allergy);
 					if(flag==true) {
 						//System.out.println("Allowed :::"+Arrays.toString(allRecipes[row]));
 						allowedRecipes.add(allRecipes[row]);
@@ -38,21 +50,10 @@ public class Allergies extends Utils{
 			}
 		}
 		//Write to excel
-		Excel.writeToExcel(allowedRecipes,"Allergies.xlsx", "Egg");
-		
-		
-		/*for(String[] i : allowedRecipes) {
-			for(String j: i) {
-				System.out.println(j);
-			}
-		}*/
-		
-		//System.out.println(allowedRecipes);
-		
-		
+		Excel.writeToExcel(allowedRecipes,"Allergies.xlsx", allergy);
 	}
 	
-	@Test
+	/*
 	public void checkMilkIngredients() throws IOException {
 		
 		HashSet<String[]> allowedRecipes = new HashSet<String[]>(); 
@@ -80,8 +81,14 @@ public class Allergies extends Utils{
 		}
 		//Write to excel
 		Excel.writeToExcel(allowedRecipes,"Allergies.xlsx", "Milk");
-	}
+	}*/
 	
+	/**
+	 * Eliminate allergic recipes
+	 * @param ingredients
+	 * @param allergyKey
+	 * @return
+	 */
 	public static boolean eliminateRecipes(String[] ingredients, String allergyKey) {
 		
 		//System.out.println(Arrays.toString(ingredients));

@@ -1,4 +1,4 @@
-package com.sdet.scraping.testcases;
+/*package com.sdet.scraping.testcases;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -290,4 +290,4 @@ public class AllRecipes {
 
 
 }
-	}
+	}*/

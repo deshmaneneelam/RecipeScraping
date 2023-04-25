@@ -56,18 +56,7 @@ public class Hyperthyriodism extends Utils{
 			}
 		}
 		//Write to excel
-		Excel.writeToExcel(allowedRecipes,"RecipesByMorbidity.xlsx","Hyperthyroid");
-		
-		
-		/*for(String[] i : allowedRecipes) {
-			for(String j: i) {
-				System.out.println(j);
-			}
-		}*/
-		
-		//System.out.println(allowedRecipes);
-		
-		
+		Excel.writeToExcel(allowedRecipes,"RecipesByMorbidity.xlsx","Hyperthyroid");		
 	}
 	
 	/**

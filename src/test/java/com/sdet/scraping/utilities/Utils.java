@@ -30,4 +30,8 @@ public class Utils {
 		return System.getProperty("user.dir")+"./src/test/resources/Data/";
 	}
 	
+	public static String driverPath() {
+		return System.getProperty("user.dir")+"/src/test/resources/Driver/";
+	}
+	
 }

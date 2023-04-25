@@ -5,12 +5,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -51,7 +54,7 @@ public class Excel {
 		
 			//XSSFSheet sheet = null;
 			file = new File(Utils.filePath()+fileName);
-			System.out.println(file.exists());
+			//System.out.println(file.exists());
 			if (file.exists()) {
 				workbook = (XSSFWorkbook) WorkbookFactory.create(new FileInputStream(file));
 			} else {
@@ -59,9 +62,11 @@ public class Excel {
 				System.out.println("hhhh:"+workbook);
 			}
 			
-		System.out.println(sheetName);
-			XSSFSheet sheet =  workbook.createSheet(sheetName);
-			
+			//System.out.println(sheetName);
+			XSSFSheet spreadsheet = workbook.getSheet(sheetName);
+			 if(spreadsheet==null) {
+				spreadsheet =  workbook.createSheet(sheetName);
+			 }
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
@@ -74,7 +79,7 @@ public class Excel {
 	 */
 	public static void writeToExcel(HashSet<String[]> recipes, String fileName, String sheetName) throws IOException  {
 		
-		System.out.println(fileName);
+		//System.out.println(fileName);
 		
 		int rowCount = 1;
 		//XSSFWorkbook workbook = new XSSFWorkbook();
@@ -125,44 +130,59 @@ public class Excel {
 		Row row = sheet.createRow(0);	
 		
 		for(String heading:header) {
+			sheet.setColumnWidth(columnCount, 25*256);
 			row.createCell(columnCount++).setCellValue((String) heading); 
 		}
 		
 	}
 	
 	
-	/*public static ArrayList<String[]> ExcelUtil() throws IOException {
+	public static void appendToExcel(ArrayList<String> recipe,  String fileName, String sheetName) throws IOException {
 		
-		DataFormatter dataFormatter = new DataFormatter();	
-		ArrayList<String[]> recipes = new ArrayList<String[]>(); 
-		String ExcelPath = "C:\\Users\\deshm\\eclipse-workspace\\RecipeScrapingApr23\\src\\test\\resources\\Data\\AllRecipes.xlsx";
-
-		FileInputStream inputFile = new FileInputStream(ExcelPath);		
-		XSSFWorkbook workbook = new XSSFWorkbook(inputFile);
-		XSSFSheet sheet = workbook.getSheetAt(0);
 		
-		//System.out.println("last row::"+sheet.getLastRowNum());
-		ArrayList<String> eachRow = new ArrayList<String>();
+		XSSFWorkbook workbook = createSheet(fileName, sheetName);
+		XSSFSheet sheet = workbook.getSheet(sheetName);
 		
-		//Object[][] data = new Object[sheet.getLastRowNum()][sheet.getRow(0).getLastCellNum()];
-		for(int i=0;i<sheet.getLastRowNum();i++) {
-			for(int k=0;k<sheet.getRow(0).getLastCellNum();k++) {
-				eachRow.add(dataFormatter.formatCellValue(sheet.getRow(i+1).getCell(k)));				
+		XSSFCellStyle cs=workbook.createCellStyle();
+		 cs.setWrapText(true);
+		cs.setVerticalAlignment(VerticalAlignment.TOP);
+		createHeader(sheet);
+		
+		
+		int lastRow = sheet.getLastRowNum();
+		
+		//System.out.println("last row ::"+ lastRow);
+		
+		int rowCount=lastRow;
+		
+			int columnCount = 0;
+			Row row = sheet.createRow(++rowCount);	
+			row.setHeightInPoints(100);
+		
+			for(String j:recipe) {		
+				
+				Cell cell = row.createCell(columnCount++);
+				
+				//System.out.println("Cell value::"+j);
+				cell.setCellValue((String) j);
+				cell.setCellStyle(cs);
+				
+				
 			}
-			recipes.add(eachRow.toArray(new String[0]));
-			
+			//rowCount++;
+		
+		
+		FileOutputStream outputStream = null;
+		try {
+			outputStream = new FileOutputStream(Utils.filePath()+fileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 		
-		workbook.close();
-		return recipes;
-		/*System.out.println(recipes.get(0));
+        workbook.write(outputStream);
+        outputStream.close();
+        workbook.close();
 		
-		for(String[] i: recipes) {
-			for(String j : i)
-			System.out.println(j);
-		}
 		
-	}*/
-	
-	
+	}	
 }

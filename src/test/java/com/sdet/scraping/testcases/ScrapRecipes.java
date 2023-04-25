@@ -82,7 +82,7 @@ public class ScrapRecipes extends TestBase {
 						
 					}
 					page++;
-				} while(page <=az.countOfPages()); // replace with page <= az.countOfPages()
+				} while(page <=az.countOfPages());
 			} catch(WebDriverException e) {	
 				e.printStackTrace();
 			}
@@ -110,15 +110,10 @@ public class ScrapRecipes extends TestBase {
 		//Wait until element loads
 		String recipeTitle=null;
 		try {
-			//WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(50)); 
-			
-			Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-					.withTimeout(Duration.ofSeconds(50))
-					.pollingEvery(Duration.ofSeconds(10))
-					.ignoring(NoSuchWindowException.class);
+			WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(50));
 			
 			recipeTitle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@id='ctl00_cntrightpanel_lblrecipeNameH2']"))).getText().split("-")[0];
-			System.out.println("Recipe name:"+recipeTitle);
+			//System.out.println("Recipe name:"+recipeTitle);
 		}catch(TimeoutException e) {
 			e.printStackTrace();
 		}catch(Exception e) {

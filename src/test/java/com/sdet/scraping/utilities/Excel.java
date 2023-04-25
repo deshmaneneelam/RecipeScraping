@@ -28,7 +28,7 @@ public class Excel {
 	public static String[][] ExcelUtil() throws IOException {
 		
 		DataFormatter dataFormatter = new DataFormatter();
-		String ExcelPath = System.getProperty("user.dir")+"./src/test/resources/Data/FinalRecipeScrapeData.xlsx";
+		String ExcelPath = System.getProperty("user.dir")+"./src/test/resources/Data/AllRecipes.xlsx";
 
 		FileInputStream inputFile = new FileInputStream(ExcelPath);		
 		XSSFWorkbook workbook = new XSSFWorkbook(inputFile);

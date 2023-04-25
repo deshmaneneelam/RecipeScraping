@@ -95,4 +95,18 @@ public class Utils {
 		return System.getProperty("user.dir")+"/src/test/resources/Driver/";
 	}
 	
+	public static ArrayList<String> eliminatePCOS() {
+		String[] eliminate = {"cakes","Pastries","puff","pies","tarts","sugar","brown sugar","coconut sugar","castor sugar","jaggery","honey","maida","rava","wheat flou","plain flour","deep fry","deep-fry","all-purpose flour","sooji","semolina","White bread","fried food","fried","pizza","burger","carbonated beverages","soft drinks","beef","milk","butter","cheese","yogurt","curd","cream","whey","tofu","soy milk","soy sauce","sweets","sweet","ice creams","soda","juices","red meat","processed meat","dairy","soy products","Gluten","pasta","white rice","doughnuts","eggs","fries","coffee","vegetable oil","soybean oil"," canola oil","rapeseed oil","sunflower oil","safflower oil"};
+		ArrayList<String> eliminateList = new ArrayList<String>(Arrays.asList(eliminate));
+		return eliminateList;
+	}
+	
+	public static ArrayList<String> AddtoPCOS() {
+		String[] AddTo = {"High fiber fruits","apple","banana","raspberries","pear","orange","strawberries","broccoli","green peas","potato","aloo","sweet corn","cauliflower","carrot","cabbage","palak","eggplant","lettuce","vegetables","vegetable","cucumber","vatana","jackfruit","ridge gourd"};
+		ArrayList<String> AddToList = new ArrayList<String>(Arrays.asList(AddTo));
+		return AddToList;
+	}
+	
+	
+	
 }

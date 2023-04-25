@@ -3,9 +3,11 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="com.sdet.scraping.utilities.TestBase"/>
       <class name="com.sdet.scraping.testcases.Hyperthyriodism"/>
       <class name="com.sdet.scraping.testcases.Allergies"/>
+      <class name="com.sdet.scraping.testcases.Diabetes"/>
+      <class name="com.sdet.scraping.testcases.PCOS"/>
+      <class name="com.sdet.scraping.testcases.Hypertension"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

@@ -14,18 +14,6 @@ public class Hyperthyriodism extends Utils{
 	String[][] allRecipes;
 	
 	/**
-	 * Get recipes from AllRecipes.xls
-	 * @return
-	 * @throws IOException
-	 */
-	/*@BeforeClass
-	public String[][] getAllRecipes() throws IOException {
-		allRecipes = Excel.ExcelUtil();
-		//System.out.println(Arrays.toString(allRecipes));
-		return allRecipes;
-	}*/
-	
-	/**
 	 * Check
 	 * @throws IOException
 	 */
